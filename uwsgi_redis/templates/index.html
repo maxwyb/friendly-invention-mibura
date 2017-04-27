@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head><title>This is a title!</title><head>
+    <body>
+      <div id="id01"></div>
+      <h1>This page has been visited {{ counter }} times!</h1>
+      <button onclick="increment()">Increment</button>
+      <div id="increment"></div>
+    <script>
+var xmlhttp = new XMLHttpRequest();
+var url = "fetch";
+
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var myArr = JSON.parse(this.responseText);
+	myFunction(myArr);
+    }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function myFunction(arr) {
+    var out = "";
+    var i;
+    for(i = 0; i < arr.length; i++) {
+	out += '<a href="' + arr[i].url + '">' +
+	    arr[i].display + '</a><br>';
+    }
+    document.getElementById("id01").innerHTML = out;
+}
+
+function increment() {
+    console.log("Increment triggered...")
+    var xmlhttp = new XMLHttpRequest();
+    var url = "increment";
+
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+	tag = document.getElementById("increment");
+	tag.innerHTML = this.responseText;
+    }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
+}
+        </script>
+    
+    </body>
+</html>
